@@ -7,7 +7,10 @@
 
 import Foundation
 
-print("Hello, World!")
+var helloVariable = "Hello"
+let worldConstant = "World!"
+
+print(helloVariable + " " + worldConstant)
 
 
 
