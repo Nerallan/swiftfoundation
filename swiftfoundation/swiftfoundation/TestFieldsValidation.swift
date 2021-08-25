@@ -16,10 +16,10 @@ class TestFieldsValidation {
     }
     
     func testValidationLogin(testLogin: String){
-        print("is login \(testLogin) valid - \(fieldValidator.isValidEmail(emailString: testLogin))")
+        print("is login \(testLogin) valid - \(fieldValidator.isValidLogin(login: testLogin))")
     }
     
-    func testValidationEmail(testPassword: String){
-        print("is password \(testPassword) valid - \(fieldValidator.isValidEmail(emailString: testPassword))")
+    func testValidationPassword(testPassword: String){
+        print("is password \(testPassword) valid - \(fieldValidator.isValidPassword(password: testPassword))")
     }
 }
