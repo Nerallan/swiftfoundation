@@ -73,7 +73,7 @@ class FieldsValidator  {
 
 extension String {
     func isValidByExtension(regexPattern: String) -> Bool {
-        let result = range(
+        let result = self.range(
             of: regexPattern,
             options: .regularExpression
         )
