@@ -12,13 +12,13 @@ class FieldsValidator  {
     
     // Email (Любой стандартный вид -- загуглить)
     func isValidEmail(emailString: String) -> Bool {
-        let regexPatternEmail = "[A-Z0-9a-z.-_]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,3}"
+        let regexPatternEmail = "[A-Z0-9a-z.-_]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,3}$"
         return isValidByRange(source: emailString, regexPattern: regexPatternEmail)
     }
     
     // Логин (Больше 5 символов, допустимые символы: цифры, буквы, нижнее подчеркивание “_”)
     func isValidLogin(login: String) -> Bool {
-        let regexPatternLogin = "[A-Za-z0-9_]{5,}"
+        let regexPatternLogin = "^[A-Za-z0-9_]{5,}$"
         return isValidByRegex(source: login, regexPattern: regexPatternLogin)
     }
 
