@@ -10,39 +10,13 @@ import Foundation
 
 class ValidationHelper  {
     
-
-//    func isValidEmail(emailString: String) -> Bool {
-//        let regexPatternEmail = "[A-Z0-9a-z.-_]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,3}$"
-//        return isValidByRange(source: emailString, regexPattern: regexPatternEmail)
-//    }
-//
-//    // Логин (Больше 5 символов, допустимые символы: цифры, буквы, нижнее подчеркивание “_”)
-//    func isValidLogin(login: String) -> Bool {
-//        let regexPatternLogin = "^[A-Za-z0-9_]{5,}$"
-//        return isValidByRegex(source: login, regexPattern: regexPatternLogin)
-//    }
-//
-//    // Пароль (От 8 до 14 символов,  допустимые символы: цифры, буквы, специальные символы (выбери любые сам),
-//    // обязательные правила: минимум 1 буква большая, минимум 1 буква маленькая, минимум 1 цифра, минимум 1 специальный символ)+
-//    // positive look ahead
-//    func isValidPassword(password: String) -> Bool {
-//        let regexPatternPassword =
-//            // from 8 to 14 characters
-//            #"(?=.{8,14})"# +
-//
-//            // At least one capital letter
-//            #"(?=.*[A-Z])"# +
-//
-//            // At least one lowercase letter
-//            #"(?=.*[a-z])"# +
-//
-//            // At least one digit
-//            #"(?=.*\d)"# +
-//
-//            // At least one special character
-//            #"(?=.*[!$%&?._-])"#
-//        return password.isValidByExtension(regexPattern: regexPatternPassword)
-//    }
+    func isValidByCharacterSet(source: String, specialCharacters: CharacterSet) -> Bool {
+        var isValid = false
+        if source.rangeOfCharacter(from: specialCharacters) != nil {
+            isValid = true
+        }
+        return isValid
+    }
     
     func isValidByRegex(source: String, regexPattern: String) -> Bool {
         var isValid = false
