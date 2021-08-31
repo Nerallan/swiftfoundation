@@ -9,8 +9,6 @@ import Foundation
 
 class TestFieldsValidation {
     
-    private var fieldValidator = FieldsValidator()
-    
     func startTestingFields() {
         executeEmailTests()
         print("-------------")
@@ -53,19 +51,22 @@ class TestFieldsValidation {
     }
     
     private func testValidationEmail(testEmail: String, expectedValue: Bool){
-        let actualValue = fieldValidator.isValidEmail(emailString: testEmail)
+        let fieldValidator: FieldValidator = EmailValidator()
+        let actualValue = fieldValidator.validate(text: testEmail)
         let resultValue = actualValue == expectedValue
         print("[email] \(testEmail) | \(getCorrectTestEmoji(isResultsMathes: resultValue))")
     }
     
     private func testValidationLogin(testLogin: String, expectedValue: Bool){
-        let actualValue = fieldValidator.isValidLogin(login: testLogin)
+        let fieldValidator: FieldValidator = LoginValidator()
+        let actualValue = fieldValidator.validate(text: testLogin)
         let resultValue = actualValue == expectedValue
         print("[login] \(testLogin) | \(getCorrectTestEmoji(isResultsMathes: resultValue))")
     }
     
     private func testValidationPassword(testPassword: String, expectedValue: Bool){
-        let actualValue = fieldValidator.isValidPassword(password: testPassword)
+        let fieldValidator: FieldValidator = PasswordValidator()
+        let actualValue = fieldValidator.validate(text: testPassword)
         let resultValue = actualValue == expectedValue
         print("[password] \(testPassword) | \(getCorrectTestEmoji(isResultsMathes: resultValue))")
     }
