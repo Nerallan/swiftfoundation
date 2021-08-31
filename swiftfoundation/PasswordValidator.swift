@@ -62,7 +62,7 @@ class PasswordValidator: FieldValidator {
         allowed.formIntersection(.lowercaseLetters)
         allowed.formIntersection(.uppercaseLetters)
         allowed.formIntersection(.decimalDigits)
-        allowed.formIntersection(CharacterSet(charactersIn: "!$%&?._-"))
+        allowed.formUnion(CharacterSet(charactersIn: "!$%&?._-"))
         return validatorHelper.isValidByCharacterSet(source: text, specialCharacters: allowed)
     }
 }
