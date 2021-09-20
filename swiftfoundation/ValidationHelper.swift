@@ -27,14 +27,6 @@ struct RegexValidator: FieldValidator {
         }
         return isValid
     }
-    
-//    func canValidate(source: String) -> Bool {
-//        var isValid = false
-//        if source.rangeOfCharacter(from: specialCharacters) != nil {
-//            isValid = true
-//        }
-//        return isValid
-//    }
 }
 
 
