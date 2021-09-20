@@ -32,6 +32,8 @@ class TestFieldsValidation {
         testValidationEmail(testEmail: "hello@mail.66", expectedValue: false)
         testValidationEmail(testEmail: "привет@мейл.66", expectedValue: false)
         testValidationEmail(testEmail: "h@h.byby", expectedValue: false)
+        testValidationEmail(testEmail: "@@@hello_12@mail.com", expectedValue: false)
+        testValidationEmail(testEmail: "hello_12@mail.com@@@", expectedValue: false)
     }
     
     private func executeLoginTests(validationType: ValidationType) {

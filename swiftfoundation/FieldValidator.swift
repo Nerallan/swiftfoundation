@@ -8,6 +8,5 @@
 import Foundation
 
 protocol FieldValidator {
-    var validatorHelper: ValidationHelper { get }
     func validate(text: String) -> Bool
 }

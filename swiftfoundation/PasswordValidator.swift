@@ -54,15 +54,18 @@ class PasswordValidator: FieldValidator {
     private func validateByCharacterSet(text: String) -> Bool {
         let minLength = 8
         let maxLength = 14
+        let alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!$%&?._-"
         if text.count < minLength || text.count > maxLength {
             return false
         }
         
-        var allowed = CharacterSet()
-        allowed.formIntersection(.lowercaseLetters)
-        allowed.formIntersection(.uppercaseLetters)
-        allowed.formIntersection(.decimalDigits)
-        allowed.formUnion(CharacterSet(charactersIn: "!$%&?._-"))
+        var allowed = CharacterSet(charactersIn: alphabet)
+//        allowed.formUnion(.lowercaseLetters)
+//        allowed.formUnion(.uppercaseLetters)
+//        allowed.formUnion(.decimalDigits)
+//        allowed.formUnion(CharacterSet(charactersIn: "!$%&?._-"))
+        print("HELLO \(allowed.description) WORLD")
+        
         return validatorHelper.isValidByCharacterSet(source: text, specialCharacters: allowed)
     }
 }
