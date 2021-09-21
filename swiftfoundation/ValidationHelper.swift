@@ -32,14 +32,6 @@ struct RegexValidator: FieldValidator {
 
 class ValidationHelper  {
     
-    func isValidByCharacterSet(source: String, specialCharacters: CharacterSet) -> Bool {
-        var isValid = false
-        if source.rangeOfCharacter(from: specialCharacters) != nil {
-            isValid = true
-        }
-        return isValid
-    }
-    
     func isValidByRegex(source: String, regexPattern: String) -> Bool {
         var isValid = false
         

@@ -54,39 +54,18 @@ class PasswordValidator: FieldValidator {
     private func validateByCharacterSet(text: String) -> Bool {
         let minLength = 8
         let maxLength = 14
-//        let alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!$%&?._-"
         let sourceCharacterSet = CharacterSet(charactersIn: text)
         if text.count < minLength || text.count > maxLength {
             return false
         }
         
         let specialCharacters = "!$%&?._-"
-//        var allowed = CharacterSet()
-//        allowed.formUnion(.lowercaseLetters)
-//        allowed.formUnion(.uppercaseLetters)
-//        allowed.formUnion(.decimalDigits)
-//
-//        allowed.formUnion(CharacterSet(charactersIn: specialCharacters))
-//
+
         let isLowercaseExist = !sourceCharacterSet.intersection(.lowercaseLetters).isEmpty
         let isUppercaseExist = !sourceCharacterSet.intersection(.uppercaseLetters).isEmpty
         let isDigitExist = !sourceCharacterSet.intersection(.decimalDigits).isEmpty
         let isSpecialCharacterExist = !sourceCharacterSet.intersection(CharacterSet(charactersIn: specialCharacters)).isEmpty
-//        let isValid = isSymbolsExistInText(alphabet: .lowercaseLetters) && isSymbolsExistInText(alphabet: .uppercaseLetters) &&
-//            isSymbolsExistInText(alphabet: .decimalDigits) && isSymbolsExistInText(alphabet: CharacterSet(charactersIn: specialCharacters))
-        
-        
-//        let isValid = sourceCharacterSet.intersection(.lowercaseLetters).isEmpty ==  && sourceCharacterSet.intersection(.uppercaseLetters) && sourceCharacterSet.intersection(.decimalDigits) && sourceCharacterSet.intersection(CharacterSet(charactersIn: specialCharacters))
-        let isValid = isLowercaseExist && isUppercaseExist && isDigitExist && isSpecialCharacterExist
-        print("HELLO \(isValid) WORLD")
-        return isValid
-//        return validatorHelper.isValidByCharacterSet(source: text, specialCharacters: allowed)
+
+        return isLowercaseExist && isUppercaseExist && isDigitExist && isSpecialCharacterExist
     }
-    
-//    func isSymbolsExistInText(alphabet: CharacterSet) {
-//        return sourceCharacterSet.intersection(.alphabet).isEmpty == false
-//    }
-//    private func generateSetFromAsciiRange(fromSymbol: String, toSymbol: String) -> Set<String> {
-//        return (UInt8(ascii: "a")...UInt8(ascii: "z")).map { Character(UnicodeScalar($0) }.
-//    }
 }
