@@ -22,16 +22,16 @@ class TestFieldsValidation {
 
             // At least one capital letter
             "^(?=.*[A-Z])" +
-                
+
             // At least one lowercase letter
             "(?=.*[a-z])" +
-                
+
             // At least one digit
             "(?=.*\\d)" +
-                
+
             // At least one special character
             "(?=.*[!$%&?._-])" +
-        
+
             // from 8 to 14 characters
             ".{8,14}$"
         executePasswordTests(fieldValidator: RegexValidator(regexPattern: regexPatternPassword))
@@ -76,22 +76,84 @@ class TestFieldsValidation {
     
     private func testValidationEmail(testEmail: String, expectedValue: Bool){
         let emailValidator = EmailValidator()
-        let actualValue = emailValidator.validate(text: testEmail)
-        let resultValue = actualValue == expectedValue
-        print("[email] \(testEmail) | \(getCorrectTestEmoji(isResultsMathes: resultValue))")
+        var actualValue = false
+        do {
+            try emailValidator.validate(text: testEmail)
+            actualValue = true
+            let resultValue = actualValue == expectedValue
+            print("[email] \(testEmail) | \(getCorrectTestEmoji(isResultsMathes: resultValue))")
+        } catch ValidationError.incorrect {
+            let resultValue = actualValue == expectedValue
+            print("[email] \(testEmail) | \(getCorrectTestEmoji(isResultsMathes: resultValue)) - \(ValidationError.incorrect)")
+        } catch ValidationError.unexpected {
+            let resultValue = actualValue == expectedValue
+            print("[email] \(testEmail) | \(getCorrectTestEmoji(isResultsMathes: resultValue)) - \(ValidationError.unexpected)")
+        } catch let error {
+            print(error.localizedDescription)
+        }
     }
     
     private func testValidationLogin(testLogin: String, expectedValue: Bool, fieldValidator: FieldValidator){
-        let actualValue = fieldValidator.validate(text: testLogin)
-        let resultValue = actualValue == expectedValue
-        print("[login] \(testLogin) | \(getCorrectTestEmoji(isResultsMathes: resultValue))")
+//        let actualValue = fieldValidator.validate(text: testLogin)
+//        let resultValue = actualValue == expectedValue
+//        print("[login] \(testLogin) | \(getCorrectTestEmoji(isResultsMathes: resultValue))")
+        
+        var actualValue = false
+        do {
+            try fieldValidator.validate(text: testLogin)
+            actualValue = true
+            let resultValue = actualValue == expectedValue
+            print("[login] \(testLogin) | \(getCorrectTestEmoji(isResultsMathes: resultValue))")
+        } catch ValidationError.incorrect {
+            let resultValue = actualValue == expectedValue
+            print("[login] \(testLogin) | \(getCorrectTestEmoji(isResultsMathes: resultValue)) - \(ValidationError.incorrect)")
+        } catch ValidationError.unexpected {
+            let resultValue = actualValue == expectedValue
+            print("[login] \(testLogin) | \(getCorrectTestEmoji(isResultsMathes: resultValue)) - \(ValidationError.unexpected)")
+        } catch let error {
+            print(error.localizedDescription)
+        }
     }
     
     private func testValidationPassword(testPassword: String, expectedValue: Bool, fieldValidator: FieldValidator){
-        let actualValue = fieldValidator.validate(text: testPassword)
-        let resultValue = actualValue == expectedValue
-        print("[password] \(testPassword) | \(getCorrectTestEmoji(isResultsMathes: resultValue))")
+//        let actualValue = fieldValidator.validate(text: testPassword)
+//        let resultValue = actualValue == expectedValue
+//        print("[password] \(testPassword) | \(getCorrectTestEmoji(isResultsMathes: resultValue))")
+        
+        var actualValue = false
+        do {
+            try fieldValidator.validate(text: testPassword)
+            actualValue = true
+            let resultValue = actualValue == expectedValue
+            print("[password] \(testPassword) | \(getCorrectTestEmoji(isResultsMathes: resultValue))")
+        } catch ValidationError.incorrect {
+            let resultValue = actualValue == expectedValue
+            print("[password] \(testPassword) | \(getCorrectTestEmoji(isResultsMathes: resultValue)) - \(ValidationError.incorrect)")
+        } catch ValidationError.unexpected {
+            let resultValue = actualValue == expectedValue
+            print("[password] \(testPassword) | \(getCorrectTestEmoji(isResultsMathes: resultValue)) - \(ValidationError.unexpected)")
+        } catch let error {
+            print(error.localizedDescription)
+        }
     }
+    
+//    private func handleError(makeValidation: () -> Void) {
+//        var actualValue = false
+//        do {
+//            try makeValidation()
+//            actualValue = true
+//            let resultValue = actualValue == expectedValue
+//            print("[email] \(testEmail) | \(getCorrectTestEmoji(isResultsMathes: resultValue))")
+//        } catch ValidationError.incorrect {
+//            let resultValue = actualValue == expectedValue
+//            print("[email] \(testEmail) | \(getCorrectTestEmoji(isResultsMathes: resultValue)) - \(ValidationError.incorrect)")
+//        } catch ValidationError.unexpected {
+//            let resultValue = actualValue == expectedValue
+//            print("[email] \(testEmail) | \(getCorrectTestEmoji(isResultsMathes: resultValue)) - \(ValidationError.unexpected)")
+//        } catch let error {
+//            print(error.localizedDescription)
+//        }
+//    }
     
     private func getCorrectTestEmoji(isResultsMathes: Bool) -> String {
         var outputString = "validation guessed - "

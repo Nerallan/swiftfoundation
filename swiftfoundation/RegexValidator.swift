@@ -11,19 +11,13 @@ struct RegexValidator: FieldValidator {
     
     let regexPattern: String
     
-    func validate(text source: String) -> Bool {
-        var isValid = false
+    func validate(text source: String) throws  {
+        let regex = try NSRegularExpression(pattern: regexPattern, options: [])
+        let sourceRange = NSRange(source.startIndex..<source.endIndex, in: source)
+        let results = regex.matches(in: source, range: sourceRange)
         
-        do {
-            let regex = try NSRegularExpression(pattern: regexPattern, options: [])
-            let sourceRange = NSRange(source.startIndex..<source.endIndex, in: source)
-            let results = regex.matches(in: source, range: sourceRange)
-            
-            isValid = results.count != 0
-        
-        } catch let error as NSError {
-            print("invalid regex: \(error.localizedDescription)")
+        guard results.count != 0 else {
+            throw ValidationError.incorrect
         }
-        return isValid
     }
 }

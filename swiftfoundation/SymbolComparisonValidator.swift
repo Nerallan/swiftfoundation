@@ -9,7 +9,7 @@ import Foundation
 
 struct SymbolComparisonLoginValidator: FieldValidator {
 
-    func validate(text: String) -> Bool {
+    func validate(text: String) throws {
         var correctSymbolCounter = 0
         let minSymbolLength = 5
         for scalar in text.unicodeScalars {
@@ -17,10 +17,12 @@ struct SymbolComparisonLoginValidator: FieldValidator {
             let isDigit = (value >= 48 && value <= 57)
             let isLetter = (value >= 65 && value <= 90) || (value >= 97 && value <= 122)
             guard isDigit || isLetter || value == 95  else {
-                return false
+                throw ValidationError.incorrect
             }
             correctSymbolCounter += 1
         }
-        return correctSymbolCounter >= minSymbolLength
+        guard correctSymbolCounter >= minSymbolLength else {
+            throw ValidationError.incorrect
+        }
     }
 }

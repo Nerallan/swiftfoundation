@@ -18,7 +18,7 @@ class EmailValidator {
         }
     }
     
-    func validate(text: String) -> Bool {
-        return fieldValidator.validate(text: text)
+    func validate(text: String) throws {
+        try fieldValidator.validate(text: text)
     }
 }

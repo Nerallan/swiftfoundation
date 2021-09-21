@@ -9,12 +9,12 @@ import Foundation
 
 struct CharacterSetPasswordValidator: FieldValidator {
 
-    func validate(text: String) -> Bool {
+    func validate(text: String) throws {
         let minLength = 8
         let maxLength = 14
         let sourceCharacterSet = CharacterSet(charactersIn: text)
         if text.count < minLength || text.count > maxLength {
-            return false
+            throw ValidationError.incorrect
         }
         
         let specialCharacters = "!$%&?._-"
@@ -24,6 +24,8 @@ struct CharacterSetPasswordValidator: FieldValidator {
         let isDigitExist = !sourceCharacterSet.intersection(.decimalDigits).isEmpty
         let isSpecialCharacterExist = !sourceCharacterSet.intersection(CharacterSet(charactersIn: specialCharacters)).isEmpty
 
-        return isLowercaseExist && isUppercaseExist && isDigitExist && isSpecialCharacterExist
+        guard isLowercaseExist && isUppercaseExist && isDigitExist && isSpecialCharacterExist else {
+            throw ValidationError.incorrect
+        }
     }
 }

@@ -8,5 +8,5 @@
 import Foundation
 
 protocol FieldValidator {
-    func validate(text: String) -> Bool
+    func validate(text: String) throws 
 }

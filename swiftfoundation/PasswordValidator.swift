@@ -40,7 +40,7 @@ class PasswordValidator {
         self.fieldValidator = validatorType
     }
     
-    func validate(text: String) -> Bool {
-        fieldValidator.validate(text: text)
+    func validate(text: String) throws {
+        try fieldValidator.validate(text: text)
     }
 }

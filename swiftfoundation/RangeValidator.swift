@@ -11,13 +11,14 @@ struct RangeValidator: FieldValidator {
     
     let regexPattern: String
     
-    func validate(text source: String) -> Bool {
+    func validate(text source: String) throws  {
         let result = source.range(
             of: regexPattern,
             options: .regularExpression
         )
 
-        let isValid = (result != nil)
-        return isValid
+        guard (result != nil) else {
+            throw ValidationError.incorrect
+        }
     }
 }
