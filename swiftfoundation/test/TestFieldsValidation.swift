@@ -82,12 +82,9 @@ class TestFieldsValidation {
             actualValue = true
             let resultValue = actualValue == expectedValue
             print("[email] \(testEmail) | \(getCorrectTestEmoji(isResultsMathes: resultValue))")
-        } catch ValidationError.incorrect {
+        } catch let error as ValidationError {
             let resultValue = actualValue == expectedValue
-            print("[email] \(testEmail) | \(getCorrectTestEmoji(isResultsMathes: resultValue)) - \(ValidationError.incorrect)")
-        } catch ValidationError.unexpected {
-            let resultValue = actualValue == expectedValue
-            print("[email] \(testEmail) | \(getCorrectTestEmoji(isResultsMathes: resultValue)) - \(ValidationError.unexpected)")
+            print("[email] \(testEmail) | \(getCorrectTestEmoji(isResultsMathes: resultValue)) - \(error.description)")
         } catch let error {
             print(error.localizedDescription)
         }
@@ -104,12 +101,9 @@ class TestFieldsValidation {
             actualValue = true
             let resultValue = actualValue == expectedValue
             print("[login] \(testLogin) | \(getCorrectTestEmoji(isResultsMathes: resultValue))")
-        } catch ValidationError.incorrect {
+        } catch let error as ValidationError {
             let resultValue = actualValue == expectedValue
-            print("[login] \(testLogin) | \(getCorrectTestEmoji(isResultsMathes: resultValue)) - \(ValidationError.incorrect)")
-        } catch ValidationError.unexpected {
-            let resultValue = actualValue == expectedValue
-            print("[login] \(testLogin) | \(getCorrectTestEmoji(isResultsMathes: resultValue)) - \(ValidationError.unexpected)")
+            print("[login] \(testLogin) | \(getCorrectTestEmoji(isResultsMathes: resultValue)) - \(error.description)")
         } catch let error {
             print(error.localizedDescription)
         }
@@ -126,12 +120,9 @@ class TestFieldsValidation {
             actualValue = true
             let resultValue = actualValue == expectedValue
             print("[password] \(testPassword) | \(getCorrectTestEmoji(isResultsMathes: resultValue))")
-        } catch ValidationError.incorrect {
+        } catch let error as ValidationError {
             let resultValue = actualValue == expectedValue
-            print("[password] \(testPassword) | \(getCorrectTestEmoji(isResultsMathes: resultValue)) - \(ValidationError.incorrect)")
-        } catch ValidationError.unexpected {
-            let resultValue = actualValue == expectedValue
-            print("[password] \(testPassword) | \(getCorrectTestEmoji(isResultsMathes: resultValue)) - \(ValidationError.unexpected)")
+            print("[password] \(testPassword) | \(getCorrectTestEmoji(isResultsMathes: resultValue)) - \(error.description)")
         } catch let error {
             print(error.localizedDescription)
         }
