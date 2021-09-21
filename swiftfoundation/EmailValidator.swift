@@ -7,13 +7,18 @@
 
 import Foundation
 
-class EmailValidator: FieldValidator {
-    
-    var validatorHelper: ValidationHelper = ValidationHelper()
+class EmailValidator {
     
     // Email (Любой стандартный вид -- загуглить)
+    let regexPatternEmail = "^[A-Z0-9a-z-_]+@[A-Za-z0-9-]+\\.[A-Za-z]{2,4}$"
+    var fieldValidator: FieldValidator {
+        set { }
+        get {
+            return RegexValidator(regexPattern: regexPatternEmail)
+        }
+    }
+    
     func validate(text: String) -> Bool {
-        let regexPatternEmail = "^[A-Z0-9a-z-_]+@[A-Za-z0-9-]+\\.[A-Za-z]{2,4}$"
-        return validatorHelper.isValidByRegex(source: text, regexPattern: regexPatternEmail)
+        return fieldValidator.validate(text: text)
     }
 }

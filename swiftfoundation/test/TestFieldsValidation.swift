@@ -13,14 +13,30 @@ class TestFieldsValidation {
         executeEmailTests()
         print("-------------")
         print("Validation By regex")
-        executeLoginTests(validationType: .byRegex)
+        executeLoginTests(fieldValidator: RegexValidator(regexPattern: "^[A-Za-z0-9_]{5,}$"))
         print("Validation By symbols comparison")
-        executeLoginTests(validationType: .bySymbolComparison)
+        executeLoginTests(fieldValidator: SymbolComparisonLoginValidator())
         print("-------------")
         print("Validation By regex")
-        executePasswordTests(validationType: .byRegex)
+        let regexPatternPassword =
+
+            // At least one capital letter
+            "^(?=.*[A-Z])" +
+                
+            // At least one lowercase letter
+            "(?=.*[a-z])" +
+                
+            // At least one digit
+            "(?=.*\\d)" +
+                
+            // At least one special character
+            "(?=.*[!$%&?._-])" +
+        
+            // from 8 to 14 characters
+            ".{8,14}$"
+        executePasswordTests(fieldValidator: RegexValidator(regexPattern: regexPatternPassword))
         print("Validation By character set")
-        executePasswordTests(validationType: .byCharacterSet)
+        executePasswordTests(fieldValidator: CharacterSetPasswordValidator())
     }
     
     private func executeEmailTests() {
@@ -36,44 +52,42 @@ class TestFieldsValidation {
         testValidationEmail(testEmail: "hello_12@mail.com@@@", expectedValue: false)
     }
     
-    private func executeLoginTests(validationType: ValidationType) {
-        testValidationLogin(testLogin: "max", expectedValue: false, validationType: validationType)
-        testValidationLogin(testLogin: "maxim12_", expectedValue: true, validationType: validationType)
-        testValidationLogin(testLogin: "maxi4", expectedValue: true, validationType: validationType)
-        testValidationLogin(testLogin: "          ", expectedValue: false, validationType: validationType)
-        testValidationLogin(testLogin: "12345(", expectedValue: false, validationType: validationType)
-        testValidationLogin(testLogin: "#maxim12", expectedValue: false, validationType: validationType)
+    private func executeLoginTests(fieldValidator: FieldValidator) {
+        testValidationLogin(testLogin: "max", expectedValue: false, fieldValidator: fieldValidator)
+        testValidationLogin(testLogin: "maxim12_", expectedValue: true, fieldValidator: fieldValidator)
+        testValidationLogin(testLogin: "maxi4", expectedValue: true, fieldValidator: fieldValidator)
+        testValidationLogin(testLogin: "          ", expectedValue: false, fieldValidator: fieldValidator)
+        testValidationLogin(testLogin: "12345(", expectedValue: false, fieldValidator: fieldValidator)
+        testValidationLogin(testLogin: "#maxim12", expectedValue: false, fieldValidator: fieldValidator)
     }
-    
-    private func executePasswordTests(validationType: ValidationType) {
-        testValidationPassword(testPassword: "123456%78", expectedValue: false, validationType: validationType)
-        testValidationPassword(testPassword: "1234567", expectedValue: false, validationType: validationType)
-        testValidationPassword(testPassword: "12345678A", expectedValue: false, validationType: validationType)
-        testValidationPassword(testPassword: "12AA", expectedValue: false, validationType: validationType)
-        testValidationPassword(testPassword: "12314asda", expectedValue: false, validationType: validationType)
-        testValidationPassword(testPassword: "!$!--Fkashd31k", expectedValue: true, validationType: validationType)
-        testValidationPassword(testPassword: "kashdkjkh", expectedValue: false, validationType: validationType)
-        testValidationPassword(testPassword: "klaPzxc!_3", expectedValue: true, validationType: validationType)
-        testValidationPassword(testPassword: "111AAAaaaa", expectedValue: false, validationType: validationType)
-        testValidationPassword(testPassword: "klazZxc!_30><<<~", expectedValue: false, validationType: validationType)
+
+    private func executePasswordTests(fieldValidator: FieldValidator) {
+        testValidationPassword(testPassword: "123456%78", expectedValue: false, fieldValidator: fieldValidator)
+        testValidationPassword(testPassword: "1234567", expectedValue: false, fieldValidator: fieldValidator)
+        testValidationPassword(testPassword: "12345678A", expectedValue: false, fieldValidator: fieldValidator)
+        testValidationPassword(testPassword: "12AA", expectedValue: false, fieldValidator: fieldValidator)
+        testValidationPassword(testPassword: "12314asda", expectedValue: false, fieldValidator: fieldValidator)
+        testValidationPassword(testPassword: "!$!--Fkashd31k", expectedValue: true, fieldValidator: fieldValidator)
+        testValidationPassword(testPassword: "kashdkjkh", expectedValue: false, fieldValidator: fieldValidator)
+        testValidationPassword(testPassword: "klaPzxc!_3", expectedValue: true, fieldValidator: fieldValidator)
+        testValidationPassword(testPassword: "111AAAaaaa", expectedValue: false, fieldValidator: fieldValidator)
+        testValidationPassword(testPassword: "klazZxc!_30><<<~", expectedValue: false, fieldValidator: fieldValidator)
     }
     
     private func testValidationEmail(testEmail: String, expectedValue: Bool){
-        let fieldValidator: FieldValidator = EmailValidator()
-        let actualValue = fieldValidator.validate(text: testEmail)
+        let emailValidator = EmailValidator()
+        let actualValue = emailValidator.validate(text: testEmail)
         let resultValue = actualValue == expectedValue
         print("[email] \(testEmail) | \(getCorrectTestEmoji(isResultsMathes: resultValue))")
     }
     
-    private func testValidationLogin(testLogin: String, expectedValue: Bool, validationType: ValidationType = .byRegex){
-        let fieldValidator: FieldValidator = LoginValidator(validatorType: validationType)
+    private func testValidationLogin(testLogin: String, expectedValue: Bool, fieldValidator: FieldValidator){
         let actualValue = fieldValidator.validate(text: testLogin)
         let resultValue = actualValue == expectedValue
         print("[login] \(testLogin) | \(getCorrectTestEmoji(isResultsMathes: resultValue))")
     }
     
-    private func testValidationPassword(testPassword: String, expectedValue: Bool, validationType: ValidationType = .byRegex){
-        let fieldValidator: FieldValidator = PasswordValidator(validatorType: validationType)
+    private func testValidationPassword(testPassword: String, expectedValue: Bool, fieldValidator: FieldValidator){
         let actualValue = fieldValidator.validate(text: testPassword)
         let resultValue = actualValue == expectedValue
         print("[password] \(testPassword) | \(getCorrectTestEmoji(isResultsMathes: resultValue))")
