@@ -128,7 +128,7 @@ class TestFieldsValidation {
         }
     }
     
-//    private func handleError(makeValidation: () -> Void) {
+//    private func handleError(makeValidation: () throws -> Void) {
 //        var actualValue = false
 //        do {
 //            try makeValidation()

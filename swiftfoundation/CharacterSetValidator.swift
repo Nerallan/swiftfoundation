@@ -18,14 +18,21 @@ struct CharacterSetPasswordValidator: FieldValidator {
         }
         
         let specialCharacters = "!$%&?._-"
-
+        
         let isLowercaseExist = !sourceCharacterSet.intersection(.lowercaseLetters).isEmpty
         let isUppercaseExist = !sourceCharacterSet.intersection(.uppercaseLetters).isEmpty
         let isDigitExist = !sourceCharacterSet.intersection(.decimalDigits).isEmpty
         let isSpecialCharacterExist = !sourceCharacterSet.intersection(CharacterSet(charactersIn: specialCharacters)).isEmpty
-
+ 
         guard isLowercaseExist && isUppercaseExist && isDigitExist && isSpecialCharacterExist else {
             throw ValidationError.incorrect
         }
     }
+}
+
+
+// выбрасывать из метода validate либо одну ошибку, либо массив ошибок 
+enum ValidatorError: Error {
+    case one
+    case many([EmailError]) // generics needed
 }

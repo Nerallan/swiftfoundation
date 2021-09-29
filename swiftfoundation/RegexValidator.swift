@@ -21,3 +21,33 @@ struct RegexValidator: FieldValidator {
         }
     }
 }
+
+// Вместо Email валидатора внустри с использующимся регекс валидатором,
+// создаем экстеншены с дефолтным регекс паатерном под каждый тип поля
+extension RegexValidator {
+    
+    static func createLogin(regex: String = "^[A-Za-z0-9_]{5,}$") -> RegexValidator {
+        return RegexValidator(regexPattern: regex)
+    }
+    
+    static func createPassword(regex: String = "^[A-Za-z0-9_]{5,}$") -> RegexValidator {
+        return RegexValidator(regexPattern: regex)
+    }
+    
+    static func createEmail(regex: String = "^[A-Za-z0-9_]{5,}$") -> RegexValidator {
+        return RegexValidator(regexPattern: regex)
+    }
+    
+    
+    init(regexLogin: String = "^[A-Za-z0-9_]{5,}$") {
+        self.init(regexPattern: regexLogin)
+    }
+    
+    init(regexEmail: String = "^[A-Za-z0-9_]{5,}$") {
+        self.init(regexPattern: regexEmail)
+    }
+    
+    init(regexPassword: String = "^[A-Za-z0-9_]{5,}$") {
+        self.regexPattern = regexPassword
+    }
+}

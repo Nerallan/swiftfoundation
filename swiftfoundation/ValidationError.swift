@@ -7,6 +7,11 @@
 
 import Foundation
 
+enum EmailError: Error {
+    case incorrectSymbol
+    case unexpected
+}
+
 enum ValidationError: Error {
     case incorrect
     case unexpected
